@@ -1,0 +1,13 @@
+{
+    "id": "{4ADF558B-04CE-4DD2-9D91-BED8E88A055B}",
+    "author": "Sven Bender",
+    "name": "SymconLibrary",
+    "url": "https://github.com/svbender/SymconLibrary",
+    "compatibility": {
+        "version": "4.4",
+        "date": 0
+    },
+    "version": "1.0",
+    "build": 0,
+    "date": 0
+}
