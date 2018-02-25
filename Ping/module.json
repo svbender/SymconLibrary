@@ -1,15 +1,11 @@
 {
     "id": "{E3ED0612-6EAB-4D14-90E4-84D7793FAE47}",
     "name": "Ping",
-    "type": 3,
+    "type": 0,
     "vendor": "",
-    "aliases":
-    [
-        "Name1UnterstütztesGerät",
-        "Name2UnterstütztesGerät"
-    ],  
+    "aliases":[],  
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
-    "prefix": "Ping"
+    "prefix": "PING"
 }
