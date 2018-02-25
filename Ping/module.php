@@ -4,7 +4,7 @@
             return Sys_Ping($ip, $timeout);
         }
 
-        public function multi(Array $ipList) {
+        public function multi(array $ipList) {
             $result = [];
             foreach ($ipList as $name => $ip) {
                 $result[$name] = $this->single($ip);
@@ -12,7 +12,7 @@
             return $result;
         }
 
-        public function list($categoryId, Array $ipList, $profileName = '~Presence') {
+        public function list($categoryId, array $ipList, $profileName = '~Presence') {
             $result = $this->multi($ipList);
             foreach ($result as $name => $status) {
 
