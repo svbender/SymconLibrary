@@ -12,7 +12,7 @@
             return $result;
         }
 
-        public function list($categoryId, $ipList, $profileName) {
+        public function updateList($categoryId, $ipList, $profileName) {
             $result = $this->multi($ipList);
             foreach ($result as $name => $status) {
 
