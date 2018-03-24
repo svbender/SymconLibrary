@@ -1,7 +1,7 @@
 {
     "id": "{E3ED0612-6EAB-4D14-90E4-84D7793FAE47}",
     "name": "Ping",
-    "type": 0,
+    "type": 3,
     "vendor": "",
     "aliases":[],  
     "parentRequirements": [],
