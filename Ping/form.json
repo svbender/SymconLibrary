@@ -1,0 +1,12 @@
+{
+    "elements": [
+        { "type": "Label", "label": "Ping IP address:" },
+        { "type": "ValidationTextBox", "name": "IP", "caption": "IP address" },
+        { "type": "NumberSpinner", "name": "Interval", "caption": "Ping interval"},
+        { "type": "NumberSpinner", "name": "Timeout", "caption": "Ping timeout"}
+    ],
+    "status": [
+        { "code": 102, "icon": "active", "caption": "IP address OK" },
+        { "code": 210, "icon": "error", "caption": "Invalid IP address" }
+    ]
+}

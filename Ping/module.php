@@ -1,37 +1,63 @@
 <?
     class Ping extends IPSModule {
-        public function single($ip, $timeout = 1000) {
-            return Sys_Ping($ip, $timeout);
+
+        CONST DEFAULT_PING_INTERVAL = 5000;
+        CONST DEFAULT_PING_TIMEOUT = 1200;
+
+        public function Create() {
+            // Never delete this line
+            parent::Create();
+        
+            $this->RegisterPropertyString('IP', '0.0.0.0');
+            $this->RegisterPropertyInteger('Interval', self::DEFAULT_PING_INTERVAL);
+            $this->RegisterPropertyInteger('Timeout', self::DEFAULT_PING_TIMEOUT);
+
+            $this->RegisterVariableBoolean('Reachable', 'Reachable');
+            $this->RegisterVariableBoolean('Active', 'Active');
+
+            $this->RegisterTimer('PingTimer', self::DEFAULT_PING_INTERVAL, 'PING_Single($_IPS[\'TARGET\']);');
+            $this->EnableAction('Active');
         }
 
-        public function multi(array $ipList) {
-            $result = [];
-            foreach ($ipList as $name => $ip) {
-                $result[$name] = $this->single($ip);
+        public function ApplyChanges() {
+            // Never delete this line
+            parent::ApplyChanges();
+
+            $activeId = $this->GetIDForIdent('Active');
+            $ip = $this->readPropertyString('IP');
+            if (!$this->IsIp($ip)) {
+                SetValue($activeId, false);
+                $this->SetStatus(210);
+                return;
             }
+            
+            $this->SetStatus(102);
+            $this->SetTimerInterval('PingTimer', $this->readPropertyInteger('Interval'));
+            SetValue($activeId, true);
+        }
+
+        public function Single() {
+            $active = GetValueBoolean($this->GetIDForIdent('Active'));
+            if (!$active) {
+                return;
+            }
+
+            $ip = $this->readPropertyString('IP');
+            $timeout = $this->readPropertyString('Timeout');
+            $result = Sys_Ping($ip, $timeout);
+            SetValue($this->GetIDForIdent('Reachable'), $result);
+            IPS_LogMessage('Ping: ' . $ip, $result);
+            
             return $result;
         }
 
-        public function updateList($categoryId, $ipList, $profileName) {
-            $result = $this->multi($ipList);
-            foreach ($result as $name => $status) {
+        public function IsReachable() {
+            return GetValueBoolean($this->GetIDForIdent('Reachable'));
+        }
 
-                $varId = @IPS_GetVariableIDByName($name, $categoryId);
-                if (!$varId) {
-                    $varId = IPS_CreateVariable(0);
-                    IPS_SetName($varId, $name);
-                    IPS_SetParent($varId, $categoryId);
-                    if ($profileName) {
-                        IPS_SetVariableCustomProfile($varId, $profileName);
-                    }
-                }
-                $currentValue = GetValueBoolean($varId);
-                if ($currentValue != $response) {
-                    SetValueBoolean($varId, $response);
-                }
-                $result[$name] = $response;
-            }
-            return $result;
+        private function IsIP($ip) {
+            $regex = '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/';
+            return $ip !== '0.0.0.0' && preg_match($regex, $ip) === 1;
         }
     }
 ?>
