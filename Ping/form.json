@@ -1,6 +1,6 @@
 {
     "elements": [
-        { "type": "Label", "label": "Ping IP address:" },
+        { "type": "Label", "label": "Module: Ping" },
         { "type": "ValidationTextBox", "name": "IP", "caption": "IP address" },
         { "type": "NumberSpinner", "name": "Interval", "caption": "Ping interval"},
         { "type": "NumberSpinner", "name": "Timeout", "caption": "Ping timeout"}
