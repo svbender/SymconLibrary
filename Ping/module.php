@@ -24,7 +24,7 @@
             parent::ApplyChanges();
 
             $activeId = $this->GetIDForIdent('Active');
-            $ip = $this->readPropertyString('IP');
+            $ip = $this->ReadPropertyString('IP');
             if (!$this->IsIp($ip)) {
                 SetValue($activeId, false);
                 $this->SetStatus(210);
@@ -32,7 +32,7 @@
             }
             
             $this->SetStatus(102);
-            $this->SetTimerInterval('PingTimer', $this->readPropertyInteger('Interval'));
+            $this->SetTimerInterval('PingTimer', $this->ReadPropertyInteger('Interval'));
             SetValue($activeId, true);
         }
 
@@ -42,11 +42,11 @@
                 return;
             }
 
-            $ip = $this->readPropertyString('IP');
-            $timeout = $this->readPropertyString('Timeout');
+            $ip = $this->ReadPropertyString('IP');
+            $timeout = $this->ReadPropertyInteger('Timeout');
             $result = Sys_Ping($ip, $timeout);
             SetValue($this->GetIDForIdent('Reachable'), $result);
-            IPS_LogMessage('Ping: ' . $ip, $result);
+            //IPS_LogMessage('Ping: ' . $ip, $result);
             
             return $result;
         }
