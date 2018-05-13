@@ -1,0 +1,11 @@
+{
+    "id": "{A4985861-1080-49CC-904E-241791A754DB}",
+    "name": "SecurityCamera",
+    "type": 3,
+    "vendor": "",
+    "aliases":[],  
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "SECURITYCAMERA"
+}

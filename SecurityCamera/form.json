@@ -1,0 +1,10 @@
+{
+    "elements": [
+        { "type": "Label", "label": "Module: SecurityCamera" },
+        { "type": "Select", "name": "Camera", "caption": "Camera type", "options": [] },
+        { "type": "ValidationTextBox", "name": "IP", "caption": "IP address" },
+        { "type": "NumberSpinner", "name": "Port", "caption": "Port"},
+        { "type": "ValidationTextBox", "name": "User", "caption": "Username" },
+        { "type": "PasswordTextBox", "name": "Password", "caption": "Password" }
+    ]
+}

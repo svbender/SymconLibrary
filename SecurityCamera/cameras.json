@@ -1,0 +1,9 @@
+{
+    "INSTAR (IN-6014HD)": {
+        "video": "http://{$ip}:{$port}/cgi-bin/hi3510/mjpegstream.cgi?-chn=11&-usr={$user}&-pwd={$password}",
+        "position": "http://{$ip}:{$port}/cgi-bin/hi3510/preset.cgi?-act=goto&-status=1&-number={$position}&-usr={$user}&-pwd={$password}",
+        "html": "<img src=\"http://{$ip}:{$port}/cgi-bin/hi3510/mjpegstream.cgi?-chn=11&-usr={$user}&-pwd={$password}\" style=\"width: 100%; height: auto;\" />"
+    },
+    "TODO: Other Cameras": {
+    }
+}
