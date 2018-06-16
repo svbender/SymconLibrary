@@ -12,11 +12,11 @@
             $this->RegisterPropertyInteger('Interval', self::DEFAULT_PING_INTERVAL);
             $this->RegisterPropertyInteger('Timeout', self::DEFAULT_PING_TIMEOUT);
 
-            $this->RegisterVariableBoolean('Reachable', 'Reachable');
-            $this->RegisterVariableBoolean('Active', 'Active');
-
-            $this->RegisterTimer('PingTimer', self::DEFAULT_PING_INTERVAL, 'PING_Single($_IPS[\'TARGET\']);');
+            $this->RegisterVariableBoolean('Reachable', 'Reachable', '~Presence');
+            $this->RegisterVariableBoolean('Active', 'Active', '~Switch');
             $this->EnableAction('Active');
+
+            $this->RegisterTimer('PingTimer', self::DEFAULT_PING_INTERVAL, 'PING_Send($_IPS[\'TARGET\']);');
         }
 
         public function ApplyChanges() {
@@ -24,19 +24,23 @@
             parent::ApplyChanges();
 
             $activeId = $this->GetIDForIdent('Active');
+
+            // Check if LP is valid
             $ip = $this->ReadPropertyString('IP');
             if (!$this->IsIp($ip)) {
+                // IP is invalid, disable ping
                 SetValue($activeId, false);
                 $this->SetStatus(210);
                 return;
             }
             
+            // Everything OK, enable ping and set interval
             $this->SetStatus(102);
             $this->SetTimerInterval('PingTimer', $this->ReadPropertyInteger('Interval'));
             SetValue($activeId, true);
         }
 
-        public function Single() {
+        public function Send() {
             $active = GetValueBoolean($this->GetIDForIdent('Active'));
             if (!$active) {
                 return;
